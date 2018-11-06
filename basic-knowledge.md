@@ -147,6 +147,38 @@ Now we get $U_{2}(x)$, the most interesting thing is I found current Utility of 
 
 ## Finding Policies 2
 
-So far we learned about getting Utility, and before we have been informed that the policy equation $\pi^{*}(s) = a$ need the core components U(s) to solve it, so next we will use the important result to find policy.
+So far we learned about getting Utility, and before we have been teached that the policy equation $\pi^{*}(s) = a$ need the core components U(s) to solve it, so next we will use the important result to find policy.
 
+First we need to introduce the difference presentation of Bellman Equation
+Let's see this one:
+$V(s) = \underset{a}{max}(R(s,a) + \gamma \sum_{s^{\prime}}T(s,a,s^{\prime})V(s^{\prime}))$
+You may found the difference is we use V to express Value instead of U to express Utility, we move ahead the $\underset{a}{max}$ to express take maximize action, we use $R(s,a)$ to express taking a action in a state and get reward instead of get reward when you get a state.
+
+If we expanded the equation, we can understand the equation by this way:
+![sarsarsar](sarsar.png)
+Semantic description is :
+We start at a specific state s, and we take a action a, and we get the reward of taking action a in state s, and this action lands the new state, and we recursively execute the process.
+
+Let's see another one:
+![sa-r-sa-r](sa-r-sa-r.png)
+If we use a difference view, we may found that the V equation have another recursive sub-sequence from first R(s,a) on to next R(s,a), so we can have another equation:
+$Q(s,a) = R(s,a) + \gamma\sum_{s^{\prime}}T(s,a,s^{\prime})\underset{a^{\prime}}{max}Q(s^{\prime}, a^{\prime})$
+Semantic description is :
+We start at some state s and we take action a, and start to process every after, this is we get a reward of taking action a at state s, and this action lands we transform to state $s^{\prime}$ and we recursively execute the process.
+
+Let's see another one:
+![s-ar-s-ar](s-ar-s-ar.png)
+
+When we get Q equation, we again may found another recursive sub-sequence form first $\gamma$ on to next $\gamma$, so we can have another equation:
+$C(s,a) = \gamma\sum_{s^{\prime}}\underset{a^{\prime}}{max}(R(s^{\prime}, a^{\prime})+ C(s^{\prime}, a^{\prime}))$
+
+With this V function and Q function and C function, we can use one of them to express another one of them:
+For example:
+$V(s) = \underset{a}{max}(Q(s,a))$
+$Q(s, a) = R(s,a) + \gamma\sum_{s^{\prime}}T(s, a, s^{\prime})V(s^{\prime})$
+$C(s,a) = \gamma\sum_{s^{prime}}T(s,a,s^{\prime})V(s^{\prime})$
+I guess you can find more like above those.
+![table](table.png)
+
+These three function indeed have difference meaning in after introduction, let me refer it out slowly.
 
