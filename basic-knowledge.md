@@ -182,3 +182,99 @@ I guess you can find more like above those.
 
 These three function indeed have difference meaning in after introduction, let me refer it out slowly.
 
+## Reinforcement Learning Basic
+
+The word Learning here is to learn what kind of action should require for a given environment and agents, and
+what is the optimal policy.
+
+### Behavior Structures
+1. Plan
+    1. Plan is a fixed sequence of actions
+2. Conditional Plan
+    1. Conditional Plan is a action tree each branch means a "if" sentence there
+3. Stationary Policy/ Universal Plan
+    1. for every states there are same "if" or there a universal "if" can handle every states
+    2. very large
+### Evaluating Policy
+Just a way that use one number to describe a policy
+![evaluating-policy](evaluating-policy.png)
+
+### Evaluating Learner
+1. Value of returned Policy
+    - How good returned Policy is
+2. Computational complexity (time)
+3. Sample complexity (time)
+    - how much data it needs
+Normally space complexity is not interesting because now we won't be limited my space issue.
+
+## TD and Friends
+### RL Context
+There difference forms of RL
+1. Model-based
+$
+<s, a, r> ^{*} \rightarrow [Model Learner] \rightarrow [T/R function] \rightarrow [MDP Solver] \rightarrow Q^{*} \rightarrow [argmax] \rightarrow \pi
+$
+*[Model Learner] takes T/R function as a feedback
+2. Value-function-based / Model-free
+$
+<s, a, r>^{*} \rightarrow [Value Update] \rightarrow Q \rightarrow [argmax] \rightarrow \pi
+$
+*[Value Update] takes Q as a feedback
+3. Policy Search
+$
+<s, a, r>^{*} \rightarrow [Policy Update] \rightarrow \pi
+$
+*[Policy Update] takes $\pi$ as a feedback
+
+### TD($\lambda$)
+
+#### Predict with given markov chain and terminal function:
+
+Temporal Difference Lambda is try to predict Value(s) at any time, for example:
+$
+    V(S) = 
+    \begin{cases}
+        0, S= S_{F} \\
+        E[R + \gamma V(S^{\prime})], S != S_{F}
+    \end{cases}
+$
+and we have this markov chain:
+![markov chain](td-lambda.png)
+here the prediction work is to work out $V(S_{3}) = ?$
+accroding to above markov chain and terminal state description function, we can recursively get $V(S_{3}) = 1.9$
+
+#### Predict with data: sequences of action and reward
+![](estimating-from-data.png)
+Above picture means that we use data to get same result of value of a state instead of use markov chain and corresponding function to derive.
+What we know is immediately reward and a lot of episodes,
+each episode is a sequence of state and each state transform takes it's reward.
+So think about what is most easy way to predict data, it's average operation.
+So after we getting 3 episodes, we can use below method:
+$V(s_{1})^{\prime} = \frac{\sum_{i}^{3}\sum R(S)}{3} = (2 + 11 + 2) / 3 = 5$
+After getting 4 episodes:
+$V(s_{1})^{\prime} = \frac{\sum_{i}^{4}\sum R(S)}{4} = (2 + 11 + 2 + 2) / 4 = 4.25$
+As more data get, we can found that value of state will approximate ture value.
+
+### Computing Estimates Incrementally
+Now we give you input as:
+$V_{T-1}(S_{1}) = 5, R_{T}(S_{1}) = 2, V_{T}(S_{1}) = ?$
+How do we estimate $V_{T}(S_{1})$ ?
+One simple way is use average:
+We can think $V_{T-1}(S_{1})$ is a averaged value by $(T-1)$ times, so the total value is $5 \times (T-1)$, and if we get a reward and transform to state S, predicted value need divided by T times:
+$V_{T}(S) = \frac{V_{T-1}(S_{1}) \times (T-1) + R_{T}(S_{1})}{T}$
+$V_{T}(S) = \frac{T-1}{T} V_{T-1}(S_{1}) + \frac{1}{T}R_{T}(S_{1})$
+$V_{T}(S) = V_{T-1}(S_{1}) + \frac{1}{T}(R_{T}(S_{1}) - V_{T-1}(S_{1}))$
+$\frac{1}{T} = \alpha_{T}$
+
+Here $\alpha_{T}$ is called learning rate, it will be smaller and smaller as time going on, and $(R_{T}(S_{1}) - V_{T-1}(S_{1}))$ is an error shows how $R_{T}(S_{1})$ effects the estimation.
+
+### Properties of learning rate
+![properties](learning-rate-properties.png)
+
+this photo shows one thing, converge or not converge.
+so it will refer question about selecting learning rate.
+
+### TD(1) Rule
+
+
+
