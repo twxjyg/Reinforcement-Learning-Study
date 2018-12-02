@@ -1,6 +1,9 @@
 # What is Reinforcement Learning
+
 TBD
-# Markov Decision Processes
+
+## Markov Decision Processes
+
 Markov Decision Processes try to give us a framework, the framework need we describe our problem
 with these important concepts:
 |Concept | Math present| Describetion |
@@ -51,7 +54,6 @@ $x = \frac{\gamma^{0}}{1 - \gamma}$
 so:
 $ \sum_{t = 0}^{\infin}\gamma^{t}R_{max} = \frac{R_{max}}{1 - \gamma} =  \frac{\gamma^{0}}{1 - \gamma} \cdot R_{max}$
 
-
 ## Policies
 
 How we use mathematic way to express policy function:
@@ -72,6 +74,7 @@ $U(s) = U^{\pi^{*}}(s)$
 It's means the optimal policy for every state, return the action a that maximizes my expected utility. This is recursive function because we use optimal policy $\pi^{*}$ to calculate itself, later we will make it possible.
 
 ## Bellman Equation
+
 Now we introduce bellman equation:
 $U(s) = R(s) + \gamma \underset{a}{max}\sum_{s^{\prime}}T(s,a,s^{\prime})U(s^{\prime})$
 We ganna use $U(s^{\prime})$ to calculate $U(s)$, the utility equals immediately reward at state s plus discounted utility that use the action a which maximizes the long term rewards from s on.
@@ -143,7 +146,7 @@ $= -0.04 + 0.5\times(0.8 \times 1 + 0.1 \times 0.36 + 0.1 \times -0.04) = 0.376$
 $U_{2}(x) = -0.04 + 0.5(0.8 \times 1 + 0.1 \times 0.36 + 0.1 \times -0.04) = 0.376$
 
 Now we get $U_{2}(x)$, the most interesting thing is I found current Utility of state is similar to anergy spreading from center on, in our situation, the anergy center is $x^{right}$ who's Utility is 1, other utility of state is like under anergy spreading and their value is smaller than center, the smallest one is most faraway one:
-![anwser](quiz-anwser.png)
+![answer](quiz-anwser.png)
 
 ## Finding Policies 2
 
@@ -188,6 +191,7 @@ The word Learning here is to learn what kind of action should require for a give
 what is the optimal policy.
 
 ### Behavior Structures
+
 1. Plan
     1. Plan is a fixed sequence of actions
 2. Conditional Plan
@@ -195,22 +199,30 @@ what is the optimal policy.
 3. Stationary Policy/ Universal Plan
     1. for every states there are same "if" or there a universal "if" can handle every states
     2. very large
+
 ### Evaluating Policy
+
 Just a way that use one number to describe a policy
 ![evaluating-policy](evaluating-policy.png)
 
 ### Evaluating Learner
+
 1. Value of returned Policy
     - How good returned Policy is
 2. Computational complexity (time)
 3. Sample complexity (time)
     - how much data it needs
+
 Normally space complexity is not interesting because now we won't be limited my space issue.
 
 ## TD and Friends
+
 ### RL Context
+
 There difference forms of RL
+
 1. Model-based
+
 $
 <s, a, r> ^{*} \rightarrow [Model Learner] \rightarrow [T/R function] \rightarrow [MDP Solver] \rightarrow Q^{*} \rightarrow [argmax] \rightarrow \pi
 $
@@ -244,7 +256,9 @@ here the prediction work is to work out $V(S_{3}) = ?$
 accroding to above markov chain and terminal state description function, we can recursively get $V(S_{3}) = 1.9$
 
 #### Predict with data: sequences of action and reward
-![](estimating-from-data.png)
+
+![estimating](estimating-from-data.png)
+
 Above picture means that we use data to get same result of value of a state instead of use markov chain and corresponding function to derive.
 What we know is immediately reward and a lot of episodes,
 each episode is a sequence of state and each state transform takes it's reward.
@@ -253,9 +267,10 @@ So after we getting 3 episodes, we can use below method:
 $V(s_{1})^{\prime} = \frac{\sum_{i}^{3}\sum R(S)}{3} = (2 + 11 + 2) / 3 = 5$
 After getting 4 episodes:
 $V(s_{1})^{\prime} = \frac{\sum_{i}^{4}\sum R(S)}{4} = (2 + 11 + 2 + 2) / 4 = 4.25$
-As more data get, we can found that value of state will approximate ture value.
+As more data get, we can found that value of state will approximate true value.
 
 ### Computing Estimates Incrementally
+
 Now we give you input as:
 $V_{T-1}(S_{1}) = 5, R_{T}(S_{1}) = 2, V_{T}(S_{1}) = ?$
 How do we estimate $V_{T}(S_{1})$ ?
@@ -269,12 +284,17 @@ $\frac{1}{T} = \alpha_{T}$
 Here $\alpha_{T}$ is called learning rate, it will be smaller and smaller as time going on, and $(R_{T}(S_{1}) - V_{T-1}(S_{1}))$ is an error shows how $R_{T}(S_{1})$ effects the estimation.
 
 ### Properties of learning rate
+
 ![properties](learning-rate-properties.png)
 
 this photo shows one thing, converge or not converge.
 so it will refer question about selecting learning rate.
 
 ### TD(1) Rule
+
+### TD(0) Rule
+
+### TD($\lambda$) Rule
 
 
 
