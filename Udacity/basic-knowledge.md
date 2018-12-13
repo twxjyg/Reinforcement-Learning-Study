@@ -290,11 +290,12 @@ Here $\alpha_{T}$ is called learning rate, it will be smaller and smaller as tim
 this photo shows one thing, converge or not converge.
 so it will refer question about selecting learning rate.
 
-### TD(1) Rule
+### TD(1) Update Rule
 
-### TD(0) Rule
 
-### TD($\lambda$) Rule
+### TD(0) Update Rule
+
+### TD($\lambda$) Update Rule
 
 
 
