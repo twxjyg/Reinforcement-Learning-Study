@@ -83,8 +83,10 @@ f. 确定的（如果是为了达到长期盈利目标的话），因为最后�
 
 ### 问题1
 
-![code](numpy-basic.py)
+![numpy-basic.py](numpy-basic.py)
 
 ### 问题2
+
+![code1.py](code1.py)
 
 
