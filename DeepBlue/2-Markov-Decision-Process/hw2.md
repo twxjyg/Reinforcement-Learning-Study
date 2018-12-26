@@ -111,3 +111,16 @@ average v(s4):2
 ### 遍历寻找最优策略
 
 ![code2.py](code2.py)
+
+optimal_policy:[
+    ('s1', 'quit'), 
+    ('s2', 'phone'), 
+    ('s3', 'study'), 
+    ('s4', 'review')]
+
+optimal_value:[
+    -6.66666667e-01,
+    -1.33333333e+00,
+    3.00000000e+00,
+    1.00000000e+01,
+    -4.56030660e-16]
