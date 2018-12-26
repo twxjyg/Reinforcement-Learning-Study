@@ -83,12 +83,14 @@ class Env(object):
         reward_vector = np.zeros(5)
         for index, state in enumerate(policy.keys()):
             reward_vector[index] = self.get_reward(state, policy[state])
-        print('reward_vector:{}'.format(reward_vector))
-        print('state_trans_matrix:{}'.format(state_trans_matrix))
-        print(policy)
-        print(np.eye(5) - gamma * state_trans_matrix)
-        inv = np.linalg.inv(np.eye(5) - gamma * state_trans_matrix)
-        return inv.dot(reward_vector)
+        # print('reward_vector:{}'.format(reward_vector))
+        # print('state_trans_matrix:{}'.format(state_trans_matrix))
+        # print('policy:{}'.format(policy))
+        # print(np.eye(5) - gamma * state_trans_matrix)
+        inv = np.linalg.pinv(np.eye(5) - gamma * state_trans_matrix)
+        values = inv.dot(reward_vector)
+        # print('values:{}'.format(values))
+        return values
 
 
 
@@ -159,7 +161,7 @@ if __name__ == "__main__":
     # 我这里给出一次仿真的示例, 假设初始状态是s2
     env = Env()
     agent = Agent()
-    gamma = 1
+    gamma = 0.5
     max_time_step = 1000
     for evaluated_s in env.S:
         if evaluated_s == 's5':
@@ -201,6 +203,7 @@ if __name__ == "__main__":
                     if (value >= max_value).all():
                         optimal_policy = policy.copy()
                         max_value = value
+                        # print('find a better policy')
                         # print('policy:{}'.format(policy))
                         # print('value:{}'.format(value))
                         # print('current max_value:{}'.format(max_value))
