@@ -3,6 +3,7 @@
 
 import numpy as np
 import random
+import math
 
 gamma = 0.9
 
@@ -55,8 +56,8 @@ class Env(object):
                         else:
                             s_n = [i,j+1]
                             r = 0
-                    else:     
-                        pass   
+                    else:
+                        pass
 
                     if s == self.A_pos:
                         s_n = self.A_n_pos
@@ -68,13 +69,28 @@ class Env(object):
                     self.P[i, j, a] = s_n
                     self.R[i, j, a] = r
 
-    def random_policy(self, s, a):
-        return random.randint(0,4)
+    def random_policy_probability(self, s, a):
+        return 0.25
 
     def random_policy_iterative_evaluation(self):
+        V = np.zeros((self.world_size, self.world_size, 4))
+        last_v_random = V[0,0,0]
         for k in range(100):
             for i in range(self.world_size):
                 for j in range(self.world_size):
                     for a in range(4):
-                        
-        pass
+                        s_n = self.P[i,j,a]
+                        r = self.R[i,j,a]
+                        gain = 0.0
+                        for a_n in range(4):
+                            gain += 1 * self.random_policy_probability([i,j],a) * V[s_n[0], s_n[1], a_n]
+                        V[i,j,a] = r + gamma*gain
+            print(V)
+            print('iteration time:{}'.format(k))
+            if math.fabs(V[0,0,0] - last_v_random) < 0.00001:
+                break
+            last_v_random = V[0,0,0]
+
+if __name__ == "__main__":
+    env = Env()
+    env.random_policy_iterative_evaluation()
