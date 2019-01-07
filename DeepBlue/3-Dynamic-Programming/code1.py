@@ -267,4 +267,5 @@ if __name__ == "__main__":
     print(V)
     print('Best Policy:')
     env.print_policy(policy)
+    plt.savefig('plot.png') 
     plt.show()
